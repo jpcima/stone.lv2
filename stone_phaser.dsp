@@ -1,6 +1,6 @@
 declare name "Stone Phaser";
 declare author "Jean Pierre Cimalando";
-declare version "1.2";
+declare version "1.2.1";
 declare license "CC0-1.0";
 
 // Référence :
@@ -16,12 +16,13 @@ import("stdfaust.lib");
 
 bypass = checkbox("[0] Bypass");
 lfotype = checkbox("[1] Color");
-lf = hslider("[2] LFO frequency [unit:Hz] [scale:log]", 0.2, 0.01, 5., 0.01) : si.smoo;
+lf = hslider("[2] LFO frequency [unit:Hz]"/*[scale:log]*/, 0.2, 0.01, 5., 0.01) : si.smoo;
 fb = hslider("[3] Feedback depth", 0.75, 0., 0.9, 0.01) : si.smoo;
-fbHf = hslider("[4] Feedback bass cut [unit:Hz] [scale:log]", 500., 10., 5000., 1.) : si.smoo;
-w = hslider("[5] Wet gain [unit:dB]", 0., -60., 20., 1.) : ba.db2linear : si.smoo;
-d = hslider("[6] Dry gain [unit:dB]", 0., -60., 20., 1.) : ba.db2linear : si.smoo;
-ph = hslider("[7] Stereo phase [unit:deg]", 45., 0., 359., 1.) : /(360.) : si.smoo;
+fbHf = hslider("[4] Feedback bass cut [unit:Hz]"/*[scale:log]*/, 500., 10., 5000., 1.) : si.smoo;
+dw = hslider("[5] Dry/wet mix [unit:%]", 50, 0, 100, 1) : *(0.01);
+w = sin(dw*(ma.PI/2)) : si.smoo;
+d = cos(dw*(ma.PI/2)) : si.smoo;
+ph = hslider("[6] Stereo phase [unit:deg]", 45., 0., 359., 1.) : /(360.) : si.smoo;
 
 //////////////////////////
 // All-pass filter unit //
