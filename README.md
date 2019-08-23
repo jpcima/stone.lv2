@@ -1,3 +1,6 @@
+**Obsolete and superseded by https://github.com/jpcima/stone-phaser**
+--
+
 # stone.lv2
 Testing repository for phaser (convert this to DPF later...)
 
